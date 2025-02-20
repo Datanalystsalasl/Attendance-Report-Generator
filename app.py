@@ -345,12 +345,12 @@ if sheet_link:
     gsheetid = extract_sheet_id(sheet_link)
 
     if gsheetid:
-        st.success("done")
+        None
 
         if st.button("Create Report"):
             report_file = generate_report(gsheetid)
             if report_file:
                 with open(report_file, "rb") as file:
-                    st.download_button("Dwonload Reportر", file, file_name=report_file)
+                    st.download_button("Dwonload Report", file, file_name=report_file)
     else:
         st.error("❌ الرابط غير صحيح، تأكد من إدخال رابط Google Sheet بشكل صحيح.")
