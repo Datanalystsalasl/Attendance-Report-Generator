@@ -345,8 +345,6 @@ if sheet_link:
     gsheetid = extract_sheet_id(sheet_link)
 
     if gsheetid:
-        None
-
         if st.button("Create Report"):
             report_file = generate_report(gsheetid)
             if report_file:
