@@ -164,7 +164,8 @@ def generate_report(gsheetid, sheet_name="Total"):
         top_ten_emp_over_time = df.drop(['Id', 'Dept', 'Sub Dept', 'Working Days', 'Remote Days',
                                          'On site days', 'permission Days', 'NO.H', 'Not Found days',
                                          'Avg Check in', 'AVG Check out', 'total on time', 'total out time',
-                                         'Total Delys hours', 'month', 'Year', 'Total working days'], axis=1)
+                                         'Total Delys hours', 'month', 'Year', 'Total working days', 'الراتب المتفق عليه', 'العموله', 'المكافأة',
+       'قيمة الخصم الاداري', 'قيمة الخصم الفني', 'صافي الراتب المستحق'], axis=1)
 
         top_ten_emp_over_time['Total Over time'] = pd.to_timedelta(top_ten_emp_over_time['Total Over time'])
 
@@ -216,7 +217,8 @@ def generate_report(gsheetid, sheet_name="Total"):
                                         'On site days', 'permission Days', 'NO.H', 'Not Found days',
                                         'Total working hours', 'AVG working per day', 'Total Over time',
                                         'Avg Check in', 'AVG Check out', 'total on time',
-                                        'month', 'Year', 'Total working days'], axis=1)
+                                        'month', 'Year', 'Total working days', 'الراتب المتفق عليه', 'العموله', 'المكافأة',
+       'قيمة الخصم الاداري', 'قيمة الخصم الفني', 'صافي الراتب المستحق'], axis=1)
 
         tOP_ten_emp_delaying['Total Delys hours'] = pd.to_timedelta(tOP_ten_emp_delaying['Total Delys hours'])
 
@@ -257,7 +259,8 @@ def generate_report(gsheetid, sheet_name="Total"):
                                'On site days', 'permission Days', 'NO.H', 'Not Found days',
                                'Total working hours', 'AVG working per day', 'Total Over time',
                                'Avg Check in', 'AVG Check out', 'total out time',
-                               'Total Delys hours', 'month', 'Year', 'Total working days'], axis=1)
+                               'Total Delys hours', 'month', 'Year', 'Total working days', 'الراتب المتفق عليه', 'العموله', 'المكافأة',
+       'قيمة الخصم الاداري', 'قيمة الخصم الفني', 'صافي الراتب المستحق'], axis=1)
         top_on_time = top_on_time.sort_values('total on time', ascending=False).head(15)
 
         # إضافة جدول
