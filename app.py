@@ -8,12 +8,12 @@ import calendar
 import re
 from datetime import datetime
 
-# استخراج الـ Sheet ID من رابط Google Sheets
+
 def extract_sheet_id(url):
     match = re.search(r'/d/([a-zA-Z0-9-_]+)', url)
     return match.group(1) if match else None
 
-# دالة إنشاء التقرير
+
 def generate_report(gsheetid, sheet_name="Total"):
     try:
         gsheet_url = f"https://docs.google.com/spreadsheets/d/{gsheetid}/gviz/tq?tqx=out:csv&sheet={sheet_name}"
