@@ -19,19 +19,19 @@ def generate_report(gsheetid, sheet_name="Total"):
         gsheet_url = f"https://docs.google.com/spreadsheets/d/{gsheetid}/gviz/tq?tqx=out:csv&sheet={sheet_name}"
         df = pd.read_csv(gsheet_url)
 
-        # تنظيف الأعمدة
+        
         df.columns = df.columns.str.strip()
         df = df.apply(lambda x: x.str.strip() if x.dtype == "object" else x)
 
         doc = Document()
         
-        # إضافة صورة (لو متاحة)
+  
         try:
             doc.add_picture('black.jpeg', width=Inches(1.25))
         except:
             pass
         
-        # استخراج البيانات المطلوبة
+       
         month = int(df.loc[0, 'month'])
         month_name = calendar.month_name[month]
         year = int(df.loc[0, 'Year'])
@@ -120,21 +120,18 @@ def generate_report(gsheetid, sheet_name="Total"):
         table = doc.add_table(rows=1, cols=len(avg_in_out_dept_sup_grouped.columns))
         table.style = 'Table Grid'
 
-        # إدراج عناوين الأعمدة مع التنسيق
+   
         hdr_cells = table.rows[0].cells
         for i, col_name in enumerate(avg_in_out_dept_sup_grouped.columns):
             hdr_cells[i].text = col_name
 
-            # تنسيق النص ليكون بولد وأبيض
             run = hdr_cells[i].paragraphs[0].runs[0]
             run.bold = True
             run.font.color.rgb = RGBColor(255, 255, 255)  # لون الخط أبيض
 
-            # إضافة لون خلفية الهيدر (أسود)
             shading_elm = parse_xml(r'<w:shd {} w:fill="000000"/>'.format(nsdecls('w')))
             hdr_cells[i]._element.get_or_add_tcPr().append(shading_elm)
 
-        # إدراج بيانات الجدول
         for row in avg_in_out_dept_sup_grouped.values:
             row_cells = table.add_row().cells
             for i, cell_value in enumerate(row):
@@ -176,21 +173,20 @@ def generate_report(gsheetid, sheet_name="Total"):
         table = doc.add_table(rows=1, cols=len(final_top_ten_emp_over_time.columns))
         table.style = 'Table Grid'
 
-        # إدراج عناوين الأعمدة مع التنسيق
+        
         hdr_cells = table.rows[0].cells
         for i, col_name in enumerate(final_top_ten_emp_over_time.columns):
             hdr_cells[i].text = col_name
 
-            # تنسيق النص ليكون بولد وأبيض
+         
             run = hdr_cells[i].paragraphs[0].runs[0]
             run.bold = True
             run.font.color.rgb = RGBColor(255, 255, 255)  # لون الخط أبيض
 
-            # إضافة لون خلفية الهيدر (أسود)
             shading_elm = parse_xml(r'<w:shd {} w:fill="000000"/>'.format(nsdecls('w')))
             hdr_cells[i]._element.get_or_add_tcPr().append(shading_elm)
 
-        # إدراج بيانات الجدول
+      
         for row in final_top_ten_emp_over_time.values:
             row_cells = table.add_row().cells
             for i, cell_value in enumerate(row):
@@ -226,21 +222,20 @@ def generate_report(gsheetid, sheet_name="Total"):
             tOP_ten_emp_delaying['Total Delys hours'].dt.total_seconds() / 3600, 2)
         tOP_ten_emp_delaying = tOP_ten_emp_delaying.sort_values('Total Delys hours', ascending=False).head(10)
 
-        # إضافة جدول
+    
         table = doc.add_table(rows=1, cols=len(tOP_ten_emp_delaying.columns))
         table.style = 'Table Grid'
 
-        # إدراج عناوين الأعمدة مع التنسيق
         hdr_cells = table.rows[0].cells
         for i, col_name in enumerate(tOP_ten_emp_delaying.columns):
             hdr_cells[i].text = col_name
 
-            # تنسيق النص ليكون بولد وأبيض
+
             run = hdr_cells[i].paragraphs[0].runs[0]
             run.bold = True
             run.font.color.rgb = RGBColor(255, 255, 255)  # لون الخط أبيض
 
-            # إضافة لون خلفية الهيدر (أسود)
+    
             shading_elm = parse_xml(r'<w:shd {} w:fill="000000"/>'.format(nsdecls('w')))
             hdr_cells[i]._element.get_or_add_tcPr().append(shading_elm)
 
@@ -263,25 +258,25 @@ def generate_report(gsheetid, sheet_name="Total"):
        'قيمة الخصم الاداري', 'قيمة الخصم الفني', 'صافي الراتب المستحق'], axis=1)
         top_on_time = top_on_time.sort_values('total on time', ascending=False).head(15)
 
-        # إضافة جدول
+
         table = doc.add_table(rows=1, cols=len(top_on_time.columns))
         table.style = 'Table Grid'
 
-        # إدراج عناوين الأعمدة مع التنسيق
+   
         hdr_cells = table.rows[0].cells
         for i, col_name in enumerate(top_on_time.columns):
             hdr_cells[i].text = col_name
 
-            # تنسيق النص ليكون بولد وأبيض
+       
             run = hdr_cells[i].paragraphs[0].runs[0]
             run.bold = True
             run.font.color.rgb = RGBColor(255, 255, 255)  # لون الخط أبيض
 
-            # إضافة لون خلفية الهيدر (أسود)
+
             shading_elm = parse_xml(r'<w:shd {} w:fill="000000"/>'.format(nsdecls('w')))
             hdr_cells[i]._element.get_or_add_tcPr().append(shading_elm)
 
-        # إدراج بيانات الجدول
+
         for row in top_on_time.values:
             row_cells = table.add_row().cells
             for i, cell_value in enumerate(row):
@@ -303,16 +298,13 @@ def generate_report(gsheetid, sheet_name="Total"):
         p = doc.add_paragraph('')
         p.add_run('Employees: Fingerprint Authentication Issues').bold = True
 
-        # إضافة جدول
         table = doc.add_table(rows=1, cols=len(Fingerprint_Authentication_Issues.columns))
         table.style = 'Table Grid'
 
-        # إدراج عناوين الأعمدة مع التنسيق
         hdr_cells = table.rows[0].cells
         for i, col_name in enumerate(Fingerprint_Authentication_Issues.columns):
             hdr_cells[i].text = col_name
 
-            # تنسيق النص ليكون بولد وأبيض
             run = hdr_cells[i].paragraphs[0].runs[0]
             run.bold = True
             run.font.color.rgb = RGBColor(255, 255, 255)  # لون الخط أبيض
@@ -321,7 +313,7 @@ def generate_report(gsheetid, sheet_name="Total"):
             shading_elm = parse_xml(r'<w:shd {} w:fill="000000"/>'.format(nsdecls('w')))
             hdr_cells[i]._element.get_or_add_tcPr().append(shading_elm)
 
-        # إدراج بيانات الجدول
+   
         for row in Fingerprint_Authentication_Issues.values:
             row_cells = table.add_row().cells
             for i, cell_value in enumerate(row):
@@ -336,7 +328,7 @@ def generate_report(gsheetid, sheet_name="Total"):
         st.error(f"❌ حدث خطأ أثناء إنشاء التقرير: {e}")
         return None
 
-# --- واجهة Streamlit ---
+
 st.image("black.jpeg", width=200)
 st.title("📊 Attendance Report Generator")
 st.write("Make sure sheet linke accessible 'Anyone with the link'  ")
